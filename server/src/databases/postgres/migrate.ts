@@ -1,5 +1,7 @@
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
-import db from './client';
+import pool from './client';
+import { drizzle } from 'drizzle-orm/postgres-js';
+const db = drizzle(pool);
 
 // this will automatically run needed migrations on the database
 async function main() {

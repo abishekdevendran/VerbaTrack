@@ -3,10 +3,16 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import Navbar from '@/components/Index/Navbar';
 import dynamic from 'next/dynamic';
+import { Provider } from 'jotai';
+import JotaiProvider from '@/lib/store/_jotai/Provider';
+import { Toaster } from 'react-hot-toast';
 
-const ThemeProvider = dynamic(() => import('@/components/Index/ThemeProvider'), {
-	ssr: false
-});
+const ThemeProvider = dynamic(
+	() => import('@/components/Index/ThemeProvider'),
+	{
+		ssr: false
+	}
+);
 
 const poppins = Poppins({
 	display: 'swap',
@@ -30,10 +36,13 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${poppins.className}`}>
-				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-					<Navbar />
-					{children}
-				</ThemeProvider>
+				<JotaiProvider>
+					<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+						<Navbar />
+						{children}
+					</ThemeProvider>
+					<Toaster />
+				</JotaiProvider>
 			</body>
 		</html>
 	);

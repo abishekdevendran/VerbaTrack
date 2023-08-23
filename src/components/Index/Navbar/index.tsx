@@ -1,10 +1,13 @@
 'use client';
 
 import { ThemeToggler } from '@/components/Index/ThemeToggler';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 const Navbar = () => {
 	const [isNavVisible, setIsNavVisible] = useState(true);
+	const pathName = usePathname();
 	useEffect(() => {
 		let prevScrollPos = window.scrollY;
 		const handleScroll = () => {
@@ -23,7 +26,13 @@ const Navbar = () => {
 				isNavVisible ? '' : 'translate-y-[-100%]'
 			}`}>
 			<div className="container flex items-center justify-between w-full">
-				<span className="text-3xl font-extrabold">VerbaTrack</span>
+				{pathName === '/' ? (
+					<span className="text-3xl font-extrabold">VerbaTrack</span>
+				) : (
+					<Link href="/" className="text-3xl font-extrabold">
+						VerbaTrack
+					</Link>
+				)}
 				<ThemeToggler />
 			</div>
 		</nav>
