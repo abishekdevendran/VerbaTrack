@@ -1,4 +1,5 @@
-import { auth, githubAuth } from '@/lib/lucia';
+import db from '@/database/drizzle/setup';
+import { auth, githubAuth, googleAuth } from '@/lib/lucia';
 import { OAuthRequestError } from '@lucia-auth/oauth';
 import { Router } from 'express';
 import { parseCookie } from 'lucia/utils';
@@ -43,16 +44,20 @@ router.get('/github/callback', async (req, res) => {
 		return res.sendStatus(400);
 	}
 	try {
-    // validate, get/create user
+		// validate, get/create user
 		const { getExistingUser, githubUser, createUser } =
 			await githubAuth.validateCallback(code);
 
 		const getUser = async () => {
+			console.log(githubUser);
 			const existingUser = await getExistingUser();
 			if (existingUser) return existingUser;
 			const user = await createUser({
 				attributes: {
-					github_username: githubUser.login
+					github_username: githubUser.login,
+					email: githubUser.email,
+					username: githubUser.login,
+					name: githubUser.name
 				}
 			});
 			return user;
@@ -60,7 +65,85 @@ router.get('/github/callback', async (req, res) => {
 
 		const user = await getUser();
 
-    // create session
+		// create session
+		const session = await auth.createSession({
+			userId: user.userId,
+			attributes: {}
+		});
+		const authRequest = auth.handleRequest(req, res);
+		authRequest.setSession(session);
+		return res.status(302).setHeader('Location', '/').end();
+	} catch (e) {
+		if (e instanceof OAuthRequestError) {
+			// invalid code
+			return res.sendStatus(400);
+		}
+		return res.sendStatus(500);
+	}
+});
+
+router.get('/google', async (req, res) => {
+	const [url, state] = await googleAuth.getAuthorizationUrl();
+	res.cookie('google_oauth_state', state, {
+		httpOnly: true,
+		secure: process.env.NODE_ENV === 'production',
+		path: '/',
+		maxAge: 60 * 60
+	});
+	return res.status(302).setHeader('Location', url.toString()).end();
+});
+
+router.get('/google/callback', async (req, res) => {
+	const cookies = parseCookie(req.headers.cookie ?? '');
+	const storedState = cookies.google_oauth_state;
+	const state = req.query.state;
+	const code = req.query.code;
+	// validate state
+	if (
+		!storedState ||
+		!state ||
+		storedState !== state ||
+		typeof code !== 'string'
+	) {
+		return res.sendStatus(400);
+	}
+	try {
+		// validate, get/create user
+		const { getExistingUser, googleUser, createUser, createKey } =
+			await googleAuth.validateCallback(code);
+
+		const getUser = async () => {
+			console.log(googleUser);
+			const existingUser = await getExistingUser();
+			if (existingUser) return existingUser;
+			if (googleUser.email_verified && googleUser.email) {
+				// check if user already exists with email
+				const existingDatabaseUserWithEmail = await db.query.user.findFirst({
+					where: (user, { eq }) => eq(user.email, googleUser.email!)
+				});
+				if (existingDatabaseUserWithEmail) {
+					// transform `UserSchema` to `User`
+					const user = auth.transformDatabaseUser(
+						existingDatabaseUserWithEmail
+					);
+					await createKey(user.userId);
+					return user;
+				}
+			}
+			const user = await createUser({
+				attributes: {
+					email: googleUser.email ?? null,
+					username: null,
+					github_username: null,
+					name: googleUser.name
+				}
+			});
+			return user;
+		};
+
+		const user = await getUser();
+
+		// create session
 		const session = await auth.createSession({
 			userId: user.userId,
 			attributes: {}
