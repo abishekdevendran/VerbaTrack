@@ -1,5 +1,5 @@
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
-import pool from './client';
+import { queryClient as pool } from '@/database/drizzle/setup';
 import { drizzle } from 'drizzle-orm/postgres-js';
 const db = drizzle(pool);
 

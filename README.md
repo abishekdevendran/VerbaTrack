@@ -1,34 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# VerbaTrack
 
-## Getting Started
+VerbaTrack revolutionizes habit tracking with user-friendly, structured 'commitment sentences.' Users set personal goals using plain language, specifying actions, timeframes, and desired progress. The app's intuitive design empowers users to effortlessly commit to and track their habits. By translating intentions into clear, human-readable sentences, VerbaTrack provides a unique and engaging way to build positive habits and achieve personal growth.
 
-First, run the development server:
+## Project Structure
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+The project is divided into two main components: the client and the server.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Client
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The `client` folder contains the front-end portion of the application, built with [Next.js](https://nextjs.org/). The Next.js App Router is used to create dynamic routes and provide a smooth navigation experience. The client is designed with user-friendly interfaces and interactive features to enhance habit tracking and commitment.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Server
 
-## Learn More
+The `server` folder houses the back-end part of the application, responsible for handling data and user interactions. The back-end is built with [LuciaAuth](https://luciaauth.com/) for authentication, ensuring secure user access. The use of [Pnpm](https://pnpm.io/) for package management optimizes dependency resolution and project maintenance. The project is structured as a monorepo, allowing for efficient code organization and management.
 
-To learn more about Next.js, take a look at the following resources:
+## Personal Goals
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+As part of the development process, the following personal goals were targeted:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Learning LuciaAuth:** A focus on mastering LuciaAuth for secure and efficient user authentication.
+- **Next.js App Router:** Exploring and implementing the Next.js App Router for dynamic and intuitive routing.
+- **Pnpm Usage:** Leveraging the benefits of Pnpm for streamlined package management.
+- **Monorepo Implementation:** Developing a monorepo structure to enhance codebase organization and scalability.
+- **Using Dribble** Making do with Dribble for design inspiration and ideas.
 
-## Deploy on Vercel
+## Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Contributions are welcome! If you have suggestions, improvements, or bug fixes, feel free to submit a pull request. Please follow the code of conduct in all interactions.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Elevate your habits with VerbaTrack and embark on a journey of personal growth and achievement.
+
+For questions and inquiries, contact abishekdevendran@gmail.com.
+## License
+
+This project is licensed under the Apache License 2.0.

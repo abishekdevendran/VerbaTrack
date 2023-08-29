@@ -4,9 +4,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export default {
-	schema: './schema.ts',
+	schema: './schema/index.ts',
 	driver: 'pg',
 	dbCredentials: {
-		connectionString: process.env.POSTGRES_URL ?? '',
+		connectionString: process.env.POSTGRES_URL ?? ''
 	}
 } satisfies Config;

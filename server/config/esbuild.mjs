@@ -1,11 +1,11 @@
-const { build } = require('esbuild');
+import { build } from 'esbuild';
 
 build({
 	entryPoints: ['src/index.ts'],
 	minify: true,
 	platform: 'node',
 	bundle: true,
-	outfile: 'dist/build.js',
+	outfile: 'dist/build.cjs',
 	external: ['sharp', 'yamlparser', 'request']
 })
 	.then(() => console.log('Build Complete!🎉'))

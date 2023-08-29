@@ -1,4 +1,4 @@
-import redisClient from '@/databases/redis';
+import redisClient from '@/database/redis';
 import RedisStore from 'connect-redis';
 import dotenv from 'dotenv';
 import session from 'express-session';

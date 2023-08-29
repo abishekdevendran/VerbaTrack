@@ -1,4 +1,4 @@
-import LogoutButton from '@/components/Index/Github/LogoutButton';
+import LogoutButton from '@/components/Index/Auth/LogoutButton';
 import { buttonVariants } from '@/components/ui/button';
 import isLoggedIn from '@/lib/fetchers/user/isLoggedIn';
 import Image from 'next/image';
