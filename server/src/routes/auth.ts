@@ -50,8 +50,10 @@ router.get('/github/callback', async (req, res) => {
 	}
 	try {
 		// validate, get/create user
+		console.log('validate, get/create user');
 		const { getExistingUser, githubUser, createUser } =
 			await githubAuth.validateCallback(code);
+		console.log('githubUser: ', githubUser);
 
 		const getUser = async () => {
 			const existingUser = await getExistingUser();
