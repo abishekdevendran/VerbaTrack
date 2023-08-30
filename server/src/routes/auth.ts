@@ -74,6 +74,7 @@ router.get('/github/callback', async (req, res) => {
 		authRequest.setSession(session);
 		return res.status(302).setHeader('Location', '/').end();
 	} catch (e) {
+		console.log(e);
 		if (e instanceof OAuthRequestError) {
 			// invalid code
 			return res.sendStatus(400);
@@ -152,6 +153,7 @@ router.get('/google/callback', async (req, res) => {
 		authRequest.setSession(session);
 		return res.status(302).setHeader('Location', '/').end();
 	} catch (e) {
+		console.log(e);
 		if (e instanceof OAuthRequestError) {
 			// invalid code
 			return res.sendStatus(400);
