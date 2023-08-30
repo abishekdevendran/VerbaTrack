@@ -14,16 +14,6 @@
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./src/*"],
-			"@/client/*": ["../client/*"]
 		},
-
-		"composite": true,
-		"declaration": true,
-		"declarationMap": true
 	},
-	"references": [
-		{
-			"path": "../client"
-		}
-	]
 }

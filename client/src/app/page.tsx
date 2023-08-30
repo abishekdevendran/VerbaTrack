@@ -1,6 +1,6 @@
 import OneTap from '@/components/Index/OneTap';
 
-export async function getBgImg() {
+async function getBgImg() {
 	const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/bgImg`);
 	url.searchParams.append('time', 'early');
 	url.searchParams.append('working', 'true');
