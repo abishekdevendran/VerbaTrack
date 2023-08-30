@@ -1,27 +1,27 @@
+import * as schema from '@/database/drizzle/schema';
+import { queryClient } from '@/database/drizzle/setup';
+import redisClient from '@/database/redis';
+import { eq } from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/postgres-js';
 import {
 	LuciaError,
 	SessionAdapter,
 	SessionSchema,
 	UserAdapter,
-	UserSchema
+	UserSchema,
 } from 'lucia';
-import redisClient from '@/database/redis';
-import { queryClient } from '@/database/drizzle/setup';
-import * as schema from '@/database/drizzle/schema';
-import { drizzle } from 'drizzle-orm/postgres-js';
-import { eq } from 'drizzle-orm';
 
 const db = drizzle(queryClient, { schema });
 
 type Adapter = {
 	getSessionAndUser?: (
-		sessionId: string
+		sessionId: string,
 	) => Promise<[SessionSchema, UserSchema] | [null, null]>;
 } & UserAdapter &
 	SessionAdapter;
 
 const getSessionAndUser: (
-	sessionId: string
+	sessionId: string,
 ) => Promise<
 	[session: SessionSchema, user: UserSchema] | [session: null, user: null]
 > = async (sessionId: string) => {
@@ -39,7 +39,7 @@ const getSessionAndUser: (
 	return [session, user];
 };
 
-const customAdapter:Adapter = (config: any) => {
+const customAdapter: Adapter = (config: any) => {
 	return (luciaError: typeof LuciaError) => ({
 		// adapter
 	});

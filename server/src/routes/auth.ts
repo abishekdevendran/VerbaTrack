@@ -14,7 +14,7 @@ router.get('/github', async (req, res) => {
 		httpOnly: true,
 		secure: process.env.NODE_ENV === 'production',
 		path: '/',
-		maxAge: 60 * 60 // 1 hour
+		maxAge: 60 * 60, // 1 hour
 	});
 	return res.status(302).setHeader('Location', url.toString()).end();
 });
@@ -57,8 +57,8 @@ router.get('/github/callback', async (req, res) => {
 					github_username: githubUser.login,
 					email: githubUser.email,
 					username: githubUser.login,
-					name: githubUser.name
-				}
+					name: githubUser.name,
+				},
 			});
 			return user;
 		};
@@ -68,7 +68,7 @@ router.get('/github/callback', async (req, res) => {
 		// create session
 		const session = await auth.createSession({
 			userId: user.userId,
-			attributes: {}
+			attributes: {},
 		});
 		const authRequest = auth.handleRequest(req, res);
 		authRequest.setSession(session);
@@ -88,7 +88,7 @@ router.get('/google', async (req, res) => {
 		httpOnly: true,
 		secure: process.env.NODE_ENV === 'production',
 		path: '/',
-		maxAge: 60 * 60
+		maxAge: 60 * 60,
 	});
 	return res.status(302).setHeader('Location', url.toString()).end();
 });
@@ -119,12 +119,12 @@ router.get('/google/callback', async (req, res) => {
 			if (googleUser.email_verified && googleUser.email) {
 				// check if user already exists with email
 				const existingDatabaseUserWithEmail = await db.query.user.findFirst({
-					where: (user, { eq }) => eq(user.email, googleUser.email!)
+					where: (user, { eq }) => eq(user.email, googleUser.email!),
 				});
 				if (existingDatabaseUserWithEmail) {
 					// transform `UserSchema` to `User`
 					const user = auth.transformDatabaseUser(
-						existingDatabaseUserWithEmail
+						existingDatabaseUserWithEmail,
 					);
 					await createKey(user.userId);
 					return user;
@@ -135,8 +135,8 @@ router.get('/google/callback', async (req, res) => {
 					email: googleUser.email ?? null,
 					username: null,
 					github_username: null,
-					name: googleUser.name
-				}
+					name: googleUser.name,
+				},
 			});
 			return user;
 		};
@@ -146,7 +146,7 @@ router.get('/google/callback', async (req, res) => {
 		// create session
 		const session = await auth.createSession({
 			userId: user.userId,
-			attributes: {}
+			attributes: {},
 		});
 		const authRequest = auth.handleRequest(req, res);
 		authRequest.setSession(session);

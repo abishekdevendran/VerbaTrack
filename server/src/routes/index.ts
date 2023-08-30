@@ -1,6 +1,6 @@
-import { Router } from 'express';
 import authRouter from './auth';
 import userRouter from './user';
+import { Router } from 'express';
 
 const router = Router();
 
@@ -13,7 +13,7 @@ router.use('/', (req, res) => {
 
 router.use('*', (req, res) => {
 	res.status(404).json({
-		message: 'Not Found'
+		message: 'Not Found',
 	});
 });
 

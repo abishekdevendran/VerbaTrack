@@ -1,7 +1,7 @@
 import router from '@/routes';
+import cors from 'cors';
 import express, { Express } from 'express';
 import helmet from 'helmet';
-import cors from 'cors';
 import morgan from 'morgan';
 
 const app: Express = express();
@@ -9,7 +9,7 @@ const app: Express = express();
 const corsOptions = {
 	origin: process.env.CLIENT_URL,
 	optionsSuccessStatus: 200,
-	credentials: true
+	credentials: true,
 };
 
 app.use(helmet());

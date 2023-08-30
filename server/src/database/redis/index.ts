@@ -1,5 +1,5 @@
-import { createClient } from 'redis';
 import dotenv from 'dotenv';
+import { createClient } from 'redis';
 
 dotenv.config();
 
@@ -9,8 +9,8 @@ const redisClient = createClient({
 		reconnectStrategy(retries) {
 			console.log('retries: ', retries);
 			return Math.min(retries * 100, 3000);
-		}
-	}
+		},
+	},
 })
 	.on('connect', () => console.log('REDIS:connect', new Date().toJSON()))
 	.on('ready', () => console.log('REDIS:ready', new Date().toJSON()))

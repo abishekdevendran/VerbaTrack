@@ -31,6 +31,7 @@ Contributions are welcome! If you have suggestions, improvements, or bug fixes, 
 Elevate your habits with VerbaTrack and embark on a journey of personal growth and achievement.
 
 For questions and inquiries, contact abishekdevendran@gmail.com.
+
 ## License
 
 This project is licensed under the Apache License 2.0.

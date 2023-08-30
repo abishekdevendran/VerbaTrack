@@ -6,7 +6,7 @@ build({
 	platform: 'node',
 	bundle: true,
 	outfile: 'dist/build.cjs',
-	external: ['sharp', 'yamlparser', 'request']
+	external: ['sharp', 'yamlparser', 'request'],
 })
 	.then(() => console.log('Build Complete!🎉'))
 	.catch(() => {
