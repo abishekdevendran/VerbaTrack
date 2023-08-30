@@ -10,6 +10,8 @@ const router = Router();
 
 router.get('/github', async (req, res) => {
 	const [url, state] = await githubAuth.getAuthorizationUrl();
+	console.log('url: ', url);
+	console.log('state: ', state);
 	res.cookie('github_oauth_state', state, {
 		httpOnly: true,
 		secure: process.env.NODE_ENV === 'production',
@@ -34,6 +36,9 @@ router.get('/github/callback', async (req, res) => {
 	const storedState = cookies.github_oauth_state;
 	const state = req.query.state;
 	const code = req.query.code;
+	console.log('storedState: ', storedState);
+	console.log('state: ', state);
+	console.log('code: ', code);
 	// validate state
 	if (
 		!storedState ||
@@ -49,7 +54,6 @@ router.get('/github/callback', async (req, res) => {
 			await githubAuth.validateCallback(code);
 
 		const getUser = async () => {
-			console.log(githubUser);
 			const existingUser = await getExistingUser();
 			if (existingUser) return existingUser;
 			const user = await createUser({
@@ -77,6 +81,7 @@ router.get('/github/callback', async (req, res) => {
 		console.log(e);
 		if (e instanceof OAuthRequestError) {
 			// invalid code
+			console.log('invalid code');
 			return res.sendStatus(400);
 		}
 		return res.sendStatus(500);
@@ -114,7 +119,6 @@ router.get('/google/callback', async (req, res) => {
 			await googleAuth.validateCallback(code);
 
 		const getUser = async () => {
-			console.log(googleUser);
 			const existingUser = await getExistingUser();
 			if (existingUser) return existingUser;
 			if (googleUser.email_verified && googleUser.email) {
