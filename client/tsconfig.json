@@ -6,7 +6,6 @@
 		"allowJs": true,
 		"skipLibCheck": true,
 		"strict": true,
-		"noEmit": true,
 		"esModuleInterop": true,
 		"module": "esnext",
 		"moduleResolution": "bundler",
@@ -25,9 +24,16 @@
 		},
 		"outDir": "dist",
 		"typeRoots": ["./node_modules/@types", "./src/types"],
+
 		"composite": true,
-		"declaration": true
+		"declaration": true,
+		"declarationMap": true
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-	"exclude": ["node_modules"]
+	"exclude": ["node_modules"],
+	"references": [
+		{
+			"path": "../server"
+		}
+	]
 }

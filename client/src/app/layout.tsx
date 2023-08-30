@@ -5,7 +5,8 @@ import { Provider } from 'jotai';
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import { Poppins } from 'next/font/google';
-import { Toaster } from 'react-hot-toast';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ThemeProvider = dynamic(
 	() => import('@/components/Index/ThemeProvider'),
@@ -37,11 +38,11 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={`${poppins.className}`}>
 				<JotaiProvider>
-					<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-						<Navbar />
-						{children}
-					</ThemeProvider>
-					<Toaster />
+						<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+							<Navbar />
+							{children}
+							<ToastContainer />
+						</ThemeProvider>
 				</JotaiProvider>
 			</body>
 		</html>

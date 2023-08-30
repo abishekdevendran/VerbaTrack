@@ -1,3 +1,5 @@
+import OneTap from '@/components/Index/OneTap';
+
 export async function getBgImg() {
 	const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/bgImg`);
 	url.searchParams.append('time', 'early');
@@ -20,6 +22,8 @@ export default async function Home() {
 				backgroundSize: 'cover',
 				backgroundPosition: 'center',
 			}}
-		></main>
+		>
+			<OneTap />
+		</main>
 	);
 }

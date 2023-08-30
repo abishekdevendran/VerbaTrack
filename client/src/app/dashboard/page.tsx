@@ -1,13 +1,14 @@
-import isLoggedIn from '@/lib/fetchers/user/isLoggedIn';
+import isLoggedIn from '@/lib/fetchers/user';
 import { redirect } from 'next/navigation';
 import React from 'react';
 
 const Dashboard = async () => {
-	const loginStatus = await isLoggedIn();
-	if (loginStatus.message === 'Login failed') {
-		return redirect('/');
+	try {
+		await isLoggedIn();
+		return <div>Dashboard</div>;
+	} catch (err) {
+		redirect('/');
 	}
-	return <div>Dashboard</div>;
 };
 
 export default Dashboard;
