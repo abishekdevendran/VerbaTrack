@@ -10,6 +10,7 @@ import 'lucia/polyfill/node';
 
 config();
 const isProd: boolean = process.env.NODE_ENV === 'production';
+console.log('isProd: ', isProd);
 
 export const auth = lucia({
 	env: isProd ? 'PROD' : 'DEV', // "PROD" if deployed to HTTPS
