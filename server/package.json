@@ -27,7 +27,8 @@
 		"lucia": "^2.4.0",
 		"morgan": "^1.10.0",
 		"postgres": "^3.3.5",
-		"redis": "^4.6.8"
+		"redis": "^4.6.8",
+		"zod": "^3.22.2"
 	},
 	"type": "module",
 	"devDependencies": {

@@ -1,3 +1,4 @@
+import errorHandler from '@/middlewares/errorHandler';
 import router from '@/routes';
 import cors from 'cors';
 import express, { Express } from 'express';
@@ -18,5 +19,6 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true })); // for application/x-www-form-urlencoded (forms)
 app.use(express.json()); // for application/json
 app.use(router);
+app.use(errorHandler);
 
 export default app;
