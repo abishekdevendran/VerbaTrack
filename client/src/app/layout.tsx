@@ -1,7 +1,9 @@
 import './globals.css';
 import Navbar from '@/components/Index/Navbar';
+import UserProvider from '@/components/Index/UserProvider';
+import DevTools from '@/lib/store/_jotai/ClientDevTools';
 import JotaiProvider from '@/lib/store/_jotai/Provider';
-import { Provider } from 'jotai';
+import QueryClientProvider from '@/lib/store/_reactQuery/ClientProvider';
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import { Poppins } from 'next/font/google';
@@ -38,11 +40,15 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={`${poppins.className}`}>
 				<JotaiProvider>
+					<QueryClientProvider>
 						<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+							<UserProvider />
 							<Navbar />
 							{children}
 							<ToastContainer />
 						</ThemeProvider>
+						<DevTools theme="dark" />
+					</QueryClientProvider>
 				</JotaiProvider>
 			</body>
 		</html>

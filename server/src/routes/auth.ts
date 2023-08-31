@@ -1,8 +1,11 @@
 import db from '@/database/drizzle/setup';
 import { auth, githubAuth, googleAuth } from '@/lib/lucia';
 import { OAuthRequestError } from '@lucia-auth/oauth';
+import { config } from 'dotenv';
 import { Router } from 'express';
 import { parseCookie } from 'lucia/utils';
+
+config();
 
 const router = Router();
 
@@ -10,8 +13,6 @@ const router = Router();
 
 router.get('/github', async (req, res) => {
 	const [url, state] = await githubAuth.getAuthorizationUrl();
-	console.log('url: ', url);
-	console.log('state: ', state);
 	res.cookie('github_oauth_state', state, {
 		httpOnly: true,
 		secure: process.env.NODE_ENV === 'production',
@@ -36,9 +37,6 @@ router.get('/github/callback', async (req, res) => {
 	const storedState = cookies.github_oauth_state;
 	const state = req.query.state;
 	const code = req.query.code;
-	console.log('storedState: ', storedState);
-	console.log('state: ', state);
-	console.log('code: ', code);
 	// validate state
 	if (
 		!storedState ||
@@ -50,10 +48,8 @@ router.get('/github/callback', async (req, res) => {
 	}
 	try {
 		// validate, get/create user
-		console.log('validate, get/create user');
 		const { getExistingUser, githubUser, createUser } =
 			await githubAuth.validateCallback(code);
-		console.log('githubUser: ', githubUser);
 
 		const getUser = async () => {
 			const existingUser = await getExistingUser();
@@ -64,6 +60,7 @@ router.get('/github/callback', async (req, res) => {
 					email: githubUser.email,
 					username: githubUser.login,
 					name: githubUser.name,
+					avatar: githubUser.avatar_url ?? null,
 				},
 			});
 			return user;
@@ -78,14 +75,16 @@ router.get('/github/callback', async (req, res) => {
 		});
 		const authRequest = auth.handleRequest(req, res);
 		authRequest.setSession(session);
-		return res.status(302).setHeader('Location', '/').end();
+		return res
+			.status(302)
+			.setHeader('Location', process.env.CLIENT_URL ?? 'http://localhost:3000')
+			.end();
 	} catch (e) {
-		console.log(e);
 		if (e instanceof OAuthRequestError) {
 			// invalid code
-			console.log('invalid code');
 			return res.sendStatus(400);
 		}
+		console.log(e);
 		return res.sendStatus(500);
 	}
 });
@@ -143,6 +142,7 @@ router.get('/google/callback', async (req, res) => {
 					username: null,
 					github_username: null,
 					name: googleUser.name,
+					avatar: googleUser.picture ?? null,
 				},
 			});
 			return user;
@@ -157,13 +157,16 @@ router.get('/google/callback', async (req, res) => {
 		});
 		const authRequest = auth.handleRequest(req, res);
 		authRequest.setSession(session);
-		return res.status(302).setHeader('Location', '/').end();
+		return res
+			.status(302)
+			.setHeader('Location', process.env.CLIENT_URL ?? 'http://localhost:3000')
+			.end();
 	} catch (e) {
-		console.log(e);
 		if (e instanceof OAuthRequestError) {
 			// invalid code
 			return res.sendStatus(400);
 		}
+		console.log(e);
 		return res.sendStatus(500);
 	}
 });

@@ -1,5 +1,6 @@
 'use client';
 
+import LoginOrWelcome from '@/components/Index/Navbar/LoginOrWelcome';
 import ThemeToggler from '@/components/Index/ThemeToggler';
 import { cn } from '@/lib/utils';
 import React, { useEffect, useState } from 'react';
@@ -31,7 +32,7 @@ const Navbar = ({ className, ...props }: { className?: string }) => {
 			className={cn(
 				`nav fixed top-0 z-50 flex h-24 w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] flex-wrap items-center justify-between ${
 					isNavVisible ? '' : 'translate-y-[-100%]'
-				} container transition-[transform,background] duration-300 ease-in-out ${
+				} transition-[transform,background] duration-300 ease-in-out ${
 					isPageTop
 						? ' bg-opacity-0 bg-clip-padding backdrop-blur-sm backdrop-filter '
 						: ' bg-opacity-75 '
@@ -40,7 +41,11 @@ const Navbar = ({ className, ...props }: { className?: string }) => {
 			)}
 			{...props}
 		>
+			<div className='container flex items-center justify-between px-4'>
+
 			<ThemeToggler />
+			<LoginOrWelcome />
+			</div>
 		</nav>
 	);
 };

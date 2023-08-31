@@ -1,7 +1,8 @@
 type User = {
-	id: number;
-	fullName?: string;
+	githubUsername?: string;
+	username?: string;
 	email: string;
 	image?: string;
-	phone?: string;
+	name?: string;
+	avatar?: string;
 };

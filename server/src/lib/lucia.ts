@@ -29,6 +29,7 @@ export const auth = lucia({
 			username: data.username,
 			email: data.email,
 			name: data.name,
+			avatar: data.avatar,
 		};
 	},
 	csrfProtection: true,
