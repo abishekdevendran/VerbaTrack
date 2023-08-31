@@ -162,11 +162,11 @@ router.get('/google/callback', async (req, res) => {
 			.setHeader('Location', process.env.CLIENT_URL ?? 'http://localhost:3000')
 			.end();
 	} catch (e) {
+		console.log(e);
 		if (e instanceof OAuthRequestError) {
 			// invalid code
 			return res.sendStatus(400);
 		}
-		console.log(e);
 		return res.sendStatus(500);
 	}
 });

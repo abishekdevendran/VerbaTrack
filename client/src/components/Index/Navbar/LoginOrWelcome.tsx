@@ -1,7 +1,7 @@
 'use client';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -11,6 +11,8 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import useUser from '@/hooks/useUser';
+import { cn } from '@/lib/utils';
+import { SiGoogle } from '@icons-pack/react-simple-icons';
 import { Github, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
@@ -39,20 +41,34 @@ const LoginOrWelcome = () => {
 				<DropdownMenuContent>
 					<DropdownMenuLabel>My Account</DropdownMenuLabel>
 					<DropdownMenuSeparator />
-					<DropdownMenuItem onClick={logout} className='cursor-pointer'>Logout</DropdownMenuItem>
+					<DropdownMenuItem onClick={logout} className="cursor-pointer">
+						Logout
+					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
 		);
 	}
 	return (
-		<>
+		<div className="flex items-center justify-center gap-2">
 			<Link
 				href={`${process.env.NEXT_PUBLIC_API_URL}/auth/github`}
-				className="bg-primary aspect-square rounded-full p-2"
+				className={cn(
+					buttonVariants({ variant: 'outline' }),
+					'm-0 aspect-square p-1',
+				)}
 			>
-				<Github className="" />
+				<Github />
 			</Link>
-		</>
+			<Link
+				href={`${process.env.NEXT_PUBLIC_API_URL}/auth/google`}
+				className={cn(
+					buttonVariants({ variant: 'outline' }),
+					'm-0 aspect-square p-1',
+				)}
+			>
+				<SiGoogle />
+			</Link>
+		</div>
 	);
 };
 
