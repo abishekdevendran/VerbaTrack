@@ -51,7 +51,7 @@ const LoginOrWelcome = () => {
 	return (
 		<div className="flex items-center justify-center gap-2">
 			<Link
-				href={`/backend/auth/github`}
+				href={`${process.env.NEXT_PUBLIC_API_URL}/auth/github`}
 				className={cn(
 					buttonVariants({ variant: 'outline' }),
 					'm-0 aspect-square p-1',
@@ -60,7 +60,7 @@ const LoginOrWelcome = () => {
 				<Github />
 			</Link>
 			<Link
-				href={`/backend/auth/google`}
+				href={`${process.env.NEXT_PUBLIC_API_URL}/auth/google`}
 				className={cn(
 					buttonVariants({ variant: 'outline' }),
 					'm-0 aspect-square p-1',
