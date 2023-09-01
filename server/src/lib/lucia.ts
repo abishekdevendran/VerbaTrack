@@ -15,9 +15,6 @@ console.log('isProd: ', isProd);
 export const auth = lucia({
 	env: isProd ? 'PROD' : 'DEV', // "PROD" if deployed to HTTPS
 	middleware: express(),
-	sessionCookie: {
-		name: 'lucia_session',
-	},
 	adapter: {
 		user: postgresAdapter(queryClient, {
 			user: 'auth_user',
@@ -35,7 +32,7 @@ export const auth = lucia({
 			avatar: data.avatar,
 		};
 	},
-	csrfProtection: true,
+	csrfProtection: false,
 });
 
 export type Auth = typeof auth;
@@ -48,6 +45,6 @@ export const githubAuth = github(auth, {
 export const googleAuth = google(auth, {
 	clientId: process.env.GOOGLE_CLIENT_ID ?? '',
 	clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
-	redirectUri: 'http://localhost:5000/auth/google/callback' ?? '',
+	redirectUri: `${process.env.API_URL}/auth/google/callback` ?? '',
 	scope: ['email', 'profile'],
 });
