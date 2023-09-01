@@ -15,6 +15,9 @@ console.log('isProd: ', isProd);
 export const auth = lucia({
 	env: isProd ? 'PROD' : 'DEV', // "PROD" if deployed to HTTPS
 	middleware: express(),
+	sessionCookie: {
+		name: 'lucia_session',
+	},
 	adapter: {
 		user: postgresAdapter(queryClient, {
 			user: 'auth_user',

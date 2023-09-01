@@ -1,5 +1,5 @@
 export default async function getUser() {
-	const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
+	const resp = await fetch(`/backend/user`, {
 		credentials: 'include',
 	});
 	if (resp.status === 401) throw new Error('Unauthorized');
@@ -7,7 +7,7 @@ export default async function getUser() {
 }
 
 export async function Logout() {
-	const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/logout`,{
+	const resp = await fetch(`/backend/user/logout`, {
 		credentials: 'include',
 	});
 	if (resp.status === 401) throw new Error('Unauthorized');
