@@ -56,6 +56,7 @@ const LoginOrWelcome = () => {
 					buttonVariants({ variant: 'outline' }),
 					'm-0 aspect-square p-1',
 				)}
+				prefetch={false}
 			>
 				<Github />
 			</Link>
@@ -65,6 +66,7 @@ const LoginOrWelcome = () => {
 					buttonVariants({ variant: 'outline' }),
 					'm-0 aspect-square p-1',
 				)}
+				prefetch={false}
 			>
 				<SiGoogle />
 			</Link>
