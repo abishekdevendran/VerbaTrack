@@ -38,3 +38,10 @@ next-env.d.ts
 
 #migrations
 *drizzle
+
+#PWA
+*sw.js
+*workbox-*.js
+*workbox-*.js.map
+*worker-*.js
+*worker-*.js.map
