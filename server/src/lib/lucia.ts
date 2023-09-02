@@ -45,6 +45,6 @@ export const githubAuth = github(auth, {
 export const googleAuth = google(auth, {
 	clientId: process.env.GOOGLE_CLIENT_ID ?? '',
 	clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
-	redirectUri: `${process.env.API_URL}/auth/google/callback` ?? '',
+	redirectUri: `${process.env.CLIENT_URL}/backend/auth/google/callback` ?? '',
 	scope: ['email', 'profile'],
 });
