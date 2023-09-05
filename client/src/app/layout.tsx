@@ -7,6 +7,7 @@ import QueryClientProvider from '@/lib/store/_reactQuery/ClientProvider';
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import { Poppins } from 'next/font/google';
+import localFont from 'next/font/local';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -51,6 +52,9 @@ export const metadata: Metadata = {
 		},
 		description: APP_DESCRIPTION,
 	},
+	icons: {
+		icon: '/icons/favicon.ico',
+	},
 };
 
 const ThemeProvider = dynamic(
@@ -60,12 +64,19 @@ const ThemeProvider = dynamic(
 	},
 );
 
-const poppins = Poppins({
-	display: 'swap',
-	weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+const quantify = localFont({
+	src: '../../public/fonts/Quantify.ttf',
+	variable: '--font-quantify',
 	preload: true,
+	display: 'swap',
+});
+
+const poppins = Poppins({
+	weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 	variable: '--font-poppins',
-	subsets: ['latin-ext'],
+	subsets: ['latin'],
+	preload: true,
+	display: 'swap',
 });
 
 export default function RootLayout({
@@ -75,7 +86,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body className={`${poppins.className}`}>
+			<body className={`${poppins.variable} ${quantify.variable} font-poppins`}>
 				<JotaiProvider>
 					<QueryClientProvider>
 						<ThemeProvider attribute="class" defaultTheme="system" enableSystem>

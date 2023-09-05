@@ -41,7 +41,10 @@ const LoginOrWelcome = () => {
 				<DropdownMenuContent>
 					<DropdownMenuLabel>My Account</DropdownMenuLabel>
 					<DropdownMenuSeparator />
-					<DropdownMenuItem onClick={logout} className="cursor-pointer">
+					<DropdownMenuItem
+						onClick={logout}
+						className=" cursor-pointer"
+					>
 						Logout
 					</DropdownMenuItem>
 				</DropdownMenuContent>

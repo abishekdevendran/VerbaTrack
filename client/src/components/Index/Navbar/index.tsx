@@ -1,8 +1,10 @@
 'use client';
 
 import LoginOrWelcome from '@/components/Index/Navbar/LoginOrWelcome';
+import Navigation from '@/components/Index/Navbar/Navigation';
 import ThemeToggler from '@/components/Index/ThemeToggler';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 const Navbar = ({ className, ...props }: { className?: string }) => {
@@ -41,10 +43,24 @@ const Navbar = ({ className, ...props }: { className?: string }) => {
 			)}
 			{...props}
 		>
-			<div className='container flex items-center justify-between px-4'>
-
-			<ThemeToggler />
-			<LoginOrWelcome />
+			<div className="container flex items-center justify-between px-4">
+				<div className="flex items-center justify-center gap-2">
+					<div className="aspect-square h-full">
+						<Image
+							src="/icons/logo.svg"
+							alt="logo"
+							width={50}
+							height={50}
+							className="aspect-square h-full transform cursor-pointer object-contain transition duration-300 ease-in-out"
+						/>
+					</div>
+					<span className="font-quantify text-5xl">VerbaTrack</span>
+				</div>
+				<Navigation />
+				<div className="flex items-center gap-2">
+					<ThemeToggler />
+					<LoginOrWelcome />
+				</div>
 			</div>
 		</nav>
 	);
